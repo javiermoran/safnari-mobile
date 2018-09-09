@@ -11,15 +11,22 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
   login(user: string, password: string) {
-    this.isAuth = true;
+    this.httpClient.post(`${this.apiUrl}/users/token`, { email: user, password})
+      .subscribe((sucess) => {
+        console.log('successs');
+        this.isAuth = true;
+        this.authChange.next();
+      }, (error) => {
+        console.log('Error');
+      });
   }
 
   logout() {
     this.isAuth = false;
+    this.authChange.next();
   }
 
   isAuthenticated() {
-    this.authChange.next();
     return this.isAuth;
   }
 }
