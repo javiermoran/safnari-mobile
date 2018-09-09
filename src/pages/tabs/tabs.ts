@@ -7,6 +7,6 @@ import { DashboardPage } from '../dashboard/dashboard';
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-  collectionPage = CollectionsPage;
+  collectionsPage = CollectionsPage;
   dashboardPage = DashboardPage;
 }
