@@ -15,6 +15,7 @@ export class MyApp implements OnInit {
   loginPage = LoginPage;
   @ViewChild(Nav) nav: Nav;
   authChanged: Subscription;
+  user: any;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, 
       private authService: AuthService) {
@@ -33,7 +34,17 @@ export class MyApp implements OnInit {
       this.nav.setRoot(this.loginPage)
     } else {
       this.nav.setRoot(this.rootPage);
+      this.authService.getUserInfo()
+        .subscribe((user) => {
+          this.user = user;
+        }, (error) => {
+          console.log(error);
+        })
     }
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   ngOnInit() {
